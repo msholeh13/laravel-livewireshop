@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Product;
 
 use App\Product;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -20,8 +21,9 @@ class Index extends Component
     ];
 
     protected $listeners = [
-        'formClose' => 'formcloseHandler',
-        'productStored' => 'productStoredHandler',
+        'formClose'         => 'formcloseHandler',
+        'productStored'     => 'productStoredHandler',
+        'productUpdated'    => 'productUpdatedHandler',
     ];
 
     public function mount()
@@ -58,5 +60,23 @@ class Index extends Component
         $this->formUpdate = true;
 
         $this->emit('editProduct', $product);
+    }
+
+    public function productUpdatedHandler()
+    {
+        $this->formVisible = false;
+        session()->flash('message', 'Your product was successfully updated');
+    }
+
+    public function deleteProduct($productId)
+    {
+        $product = Product::findOrFail($productId);
+
+        if ($product->image) {
+            Storage::disk('public')->delete($product->image);
+        }
+
+        $product->delete();
+        session()->flash('message', 'Your product was successfully deleted');
     }
 }

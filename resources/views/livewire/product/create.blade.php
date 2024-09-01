@@ -59,7 +59,7 @@
                                     @if($image)
                                         <img src="{{$image->temporaryUrl()}}" alt="temp" height="200">
                                     @endif
-                                    <div><small class="text-success">gunakan file .png, karena selain itu akan memunculkan bug di versi livewire 1.2</small></div>
+                                    {{-- <div><small class="text-success">gunakan file .png, karena selain itu akan memunculkan bug di versi livewire 1.2</small></div> --}}
                                 </div>
                             </div>
                         </div>
