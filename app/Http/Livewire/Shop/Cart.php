@@ -8,6 +8,7 @@ use App\Facades\Cart as FacadesCart;
 
 class Cart extends Component
 {
+
     public $cart;
 
     public function mount()
@@ -25,5 +26,12 @@ class Cart extends Component
         FacadesCart::remove($productId);
         $this->cart = FacadesCart::get()['products'];
         $this->emit('removeFromCart');
+    }
+
+    public function removeAllProduct()
+    {
+        FacadesCart::clear();
+        $this->cart = FacadesCart::get()['products'];
+        $this->emit('removeAllProduct');
     }
 }

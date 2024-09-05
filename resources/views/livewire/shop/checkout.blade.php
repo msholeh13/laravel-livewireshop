@@ -83,6 +83,30 @@
                                 <button type="submit" class="btn btn-sm btn-primary">Submit</button>
                             </div>
                         </form>
+                    @else
+                        <button wire:click="$emit('payment', '{{$snapToken}}')" class="btn btn-sm btn-primary">Payment</button>
+                        <script>
+                            window.livewire.on('payment', function(snapToken){
+                                snap.pay(snapToken, {
+                                    // Optional
+                                    onSuccess: function(result){
+                                        console.log("Payment successful, emptying cart");
+                                        window.livewire.emit('emptyCart');
+                                        window.location.href = "/shop";
+                                    },
+                                    // Optional
+                                    onPending: function(result){
+                                        console.log("Payment pending, reloading page");
+                                        location.reload();
+                                    },
+                                    // Optional
+                                    onError: function(result){
+                                        console.log("Payment error, reloading page");
+                                        location.reload();
+                                    }
+                                })
+                            });
+                        </script>
                     @endif
                 </div>
             </div>

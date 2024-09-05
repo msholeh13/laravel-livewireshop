@@ -2,7 +2,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Checkout') }}</div>
+                <div class="card-header">{{ __('Checkout') }} <button type="button" class="btn btn-sm btn-primary" wire:click='removeAllProduct()'>Clear All</button></div>
 
                 <div class="card-body">
                     
